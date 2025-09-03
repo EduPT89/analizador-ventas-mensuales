@@ -1,4 +1,9 @@
 # Example data
+from unittest import result
+
+import git
+
+
 sales_data = [
     {"day": 1, "product_a": 202, "product_b": 142, "product_c": 164},
     {"day": 2, "product_a": 206, "product_b": 121, "product_c": 338},
@@ -21,32 +26,67 @@ sales_data = [
     {"day": 19, "product_a": 229, "product_b": 133, "product_c": 241},
     {"day": 20, "product_a": 210, "product_b": 57, "product_c": 324}
 ]
+# 1.Calcular ventas totales de un producto.
 
 def total_sales_by_product(data, product_key):
     """Calculates the total sales of a specific product in 30 days."""
     pass
+    total = 0
+    for day in data:
+        total += day[product_key]
+    return total
 
-
+# 2.Promedio diario ventas productos.
 def average_daily_sales(data, product_key):
     """Calculates the average daily sales of a specific product."""
     pass
+    total = total_sales_by_product(data, product_key)
+    return total / len(data)
 
-
+# 3.Día con más ventas totales.
 def best_selling_day(data):
     """Finds the day with the highest total sales."""
     pass
+    best_day = None
+    best_total = 0
+    for day in data:
+        daily_total = day["product_a"]+day["product_b"]+day["product_c"]
+        if daily_total > best_total:
+            best_total = daily_total
+            best_day = day["day"]
+    return best_day
 
-
+# 4.Días que las ventas de un producto superaron el umbral.
 def days_above_threshold(data, product_key, threshold):
     """Counts how many days the sales of a product exceeded a given threshold."""
     pass
+# NO CLUE
 
-
+# 5.Identificar producto (A,B o C) con ventas totales más altas.
 def top_product(data):
     """Determines which product had the highest total sales in 30 days."""
     pass
+    total_sales_by_product = {
+        "product_a": total_sales_by_product(data,"product_a"),
+        "product_b": total_sales_by_product(data,"product_b"),
+        "product_c": total_sales_by_product(data,"product_c")
+    }
+    return max(totals,)
 
+#_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
+# 6.Día con menos volumen de ventas
+def worst_selling_day(data):
+    """Finds the day with the lowest total sales."""
+    pass
+    worst_day = None
+    worst_total = 0
+    for day in data:
+        daily_total = day["product_a"]+day["product_b"]+day["product_c"]
+        if daily_total < worst_total:
+            worst_total = daily_total
+            worst_day = day["day"]
+    return worst_day
 
 # Function tests
 print("Total sales of product_a:", total_sales_by_product(sales_data, "product_a"))
@@ -54,3 +94,13 @@ print("Average daily sales of product_b:", average_daily_sales(sales_data, "prod
 print("Day with highest total sales:", best_selling_day(sales_data))
 print("Days when product_c exceeded 300 sales:", days_above_threshold(sales_data, "product_c", 300))
 print("Product with highest total sales:", top_product(sales_data))
+
+# Funciton extra tests
+print("Day with lowest total sales:", worst_selling_day(sales_data))
+
+'''bash
+python3 monthly_sales_analyzer.py'''
+
+'''sh
+git push origin main
+'''
